@@ -1,0 +1,159 @@
+``` python
+from tkinter import *
+game_over = False
+who_play=1
+p1=[
+    [0,0,0],
+    [0,0,0],
+    [0,0,0]
+    ]
+
+def reset_game():
+        global p1, game_over, who_play
+        p1 = [[0,0,0],[0,0,0],[0,0,0]]
+        game_over = False
+        who_play=1
+        canvas.itemconfig(text_id, text="")
+        canvas.delete("all")
+        canvas.create_line(0, 200, 600, 200, width=4, fill="black") 
+        canvas.create_line(0, 400, 600, 400, width=4, fill="black") 
+        canvas.create_line(200, 0, 200, 600,width=4, fill="black") 
+        canvas.create_line(400, 0, 400, 600, width=4, fill="black") 
+
+def mouse_click(event):
+    global who_play, p1,game_over
+    if game_over:
+        return
+    dx=min(event.x//200,2)
+    dy=min(event.y//200,2)
+    sx=dx*200+100
+    sy=dy*200+100
+    if p1[dx][dy]==0:
+        if who_play==1:
+            canvas.create_oval(sx-30, sy-30, sx+30, sy+30, fill="red", outline="black")
+            who_play=2
+            p1[dx][dy]=1
+        elif who_play==2:
+            canvas.create_line(sx-30, sy-30, sx+30, sy+30, width=4, fill="blue") 
+            canvas.create_line(sx-30, sy+30, sx+30, sy-30, width=4, fill="blue") 
+            who_play=1
+            p1[dx][dy]=2
+    else:
+        canvas.create_text(300, 500, text="已經有人填過這格，請換一格", 
+                font=("標楷體", 18), 
+                fill="red", tags="toast")
+        tk.after(1500, lambda: canvas.delete("toast"))
+                
+    if p1[0][0]==1 and p1[1][0]==1 and p1[2][0]==1:
+        canvas.create_text(300, 18, text="Red win!", 
+                font=("Arial", 18), 
+                fill="red")
+        game_over=True
+    elif p1[0][1]==1 and p1[1][1]==1 and p1[2][1]==1:
+        canvas.create_text(300, 18, text="Red win!", 
+                font=("Arial", 18), 
+                fill="red")
+        game_over=True
+    elif p1[0][2]==1 and p1[1][2]==1 and p1[2][2]==1:
+        canvas.create_text(300, 18, text="Red win!", 
+                font=("Arial", 18), 
+                fill="red")
+        game_over=True
+    elif p1[0][0]==1 and p1[0][1]==1 and p1[0][2]==1:
+        canvas.create_text(300, 18, text="Red win!", 
+                font=("Arial", 18), 
+                fill="red")
+        game_over=True
+    elif p1[1][0]==1 and p1[1][1]==1 and p1[1][2]==1:
+        canvas.create_text(300, 18, text="Red win!", 
+                font=("Arial", 18), 
+                fill="red")
+        game_over=True
+    elif p1[2][0]==1 and p1[2][1]==1 and p1[2][2]==1:
+        canvas.create_text(300, 18, text="Red win!", 
+                font=("Arial", 18), 
+                fill="red")
+        game_over=True
+    elif p1[0][0]==1 and p1[1][1]==1 and p1[2][2]==1:
+        canvas.create_text(300, 18, text="Red win!", 
+                font=("Arial", 18), 
+                fill="red")
+        game_over=True
+    elif p1[0][2]==1 and p1[1][1]==1 and p1[2][0]==1:
+        canvas.create_text(300, 18, text="Red win!", 
+                font=("Arial", 18), 
+                fill="red")
+        game_over=True
+
+
+
+    if p1[0][0]==2 and p1[1][0]==2 and p1[2][0]==2:
+        canvas.create_text(300, 18, text="blue win!", 
+                font=("Arial", 18), 
+                fill="red")
+        game_over=True
+    elif p1[0][1]==2 and p1[1][1]==2 and p1[2][1]==2:
+        canvas.create_text(300, 18, text="blue win!", 
+                font=("Arial", 18), 
+                fill="red")
+        game_over=True
+    elif p1[0][2]==2 and p1[1][2]==2 and p1[2][2]==2:
+        canvas.create_text(300, 18, text="blue win!", 
+                font=("Arial", 18), 
+                fill="red")
+        game_over=True
+    elif p1[0][0]==2 and p1[0][1]==2 and p1[0][2]==2:
+        canvas.create_text(300, 18, text="blue win!", 
+                font=("Arial", 18), 
+                fill="red")
+        game_over=True
+    elif p1[1][0]==2 and p1[1][1]==2 and p1[1][2]==2:
+        canvas.create_text(300, 18, text="blue win!", 
+                font=("Arial", 18), 
+                fill="red")
+        game_over=True
+    elif p1[2][0]==2 and p1[2][1]==2 and p1[2][2]==2:
+        canvas.create_text(300, 18, text="blue win!", 
+                font=("Arial", 18), 
+                fill="red")
+        game_over=True
+    elif p1[0][0]==2 and p1[1][1]==2 and p1[2][2]==2:
+        canvas.create_text(300, 18, text="blue win!", 
+                font=("Arial", 18), 
+                fill="red")
+        game_over=True
+    elif p1[0][2]==2 and p1[1][1]==2 and p1[2][0]==2:
+        canvas.create_text(300, 18, text="blue win!", 
+                font=("Arial", 18), 
+                fill="red")
+        game_over=True
+        
+
+def keyEvent(event):
+    if event.keysym == "Escape":
+        tk.destroy()
+tk = Tk()
+canvas = Canvas(tk, width=600, height=600, bg="white")
+reset_btn = Button(tk, text="重來", command=reset_game)
+reset_btn.pack(pady=10)
+# -------------------------------------
+canvas.pack()
+canvas.create_line(0, 200, 600, 200, width=4, fill="black") 
+canvas.create_line(0, 400, 600, 400, width=4, fill="black") 
+canvas.create_line(200, 0, 200, 600,width=4, fill="black") 
+canvas.create_line(400, 0, 400, 600, width=4, fill="black") 
+text_id = canvas.create_text(300, 20, text="", 
+                             font=("Consolas", 20, "bold"), 
+                             fill="blue", anchor="nw")
+text_id_2 = canvas.create_text(300, 30, text="", 
+                             font=("Consolas", 20, "bold"), 
+                             fill="blue", anchor="nw")
+canvas.bind("<Button>", mouse_click) 
+# -------------------------------------
+tk.bind_all("<KeyPress>", keyEvent)
+tk.lift()
+tk.title("圈圈叉叉")
+tk.focus_force()
+tk.mainloop()
+```
+
